@@ -7,9 +7,22 @@ Merge multiple Swagger JSON files to a JSON file.
 * it merges `paths` fields of input files
 * it merges `definitions` fields of input files
 
+### Installation
+```
+go get -u github.com/xissy/swagger-tool
+```
+or
+```
+docker pull xissy/swagger-tool
+```
+
 ### Usage
 ```
 swagger-tool merge -i input1.json -i input2.json -o output.json
+```
+or
+```
+docker run --rm -it -v `pwd`:/input xissy/swagger-tool merge -i /input/input_account.json -i /input/input_auth.json -o output.json
 ```
 
 ### Why?
