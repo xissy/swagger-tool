@@ -2,10 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/spf13/cobra"
-
-	"os"
 
 	"github.com/xissy/swagger-tool/swagger"
 )
@@ -39,18 +38,20 @@ If -o option does not exist, it prints result on stdout.`,
 	},
 }
 
+func init() {
+	rootCmd.AddCommand(mergeCmd)
+
+	mergeCmd.Flags().StringArrayP("input", "i", []string{}, "input Swagger JSON files (required)")
+	mergeCmd.Flags().StringP("output", "o", "", "output Swagger JSON file (prints stdout without -o)")
+
+	if err := mergeCmd.MarkFlagRequired("input"); err != nil {
+		exitIfErr(err)
+	}
+}
+
 func exitIfErr(err error) {
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-}
-
-func init() {
-	rootCmd.AddCommand(mergeCmd)
-
-	mergeCmd.Flags().StringArrayP("input", "i", []string{}, "input Swagger JSON files (required)")
-	mergeCmd.MarkFlagRequired("input")
-
-	mergeCmd.Flags().StringP("output", "o", "", "output Swagger JSON file (prints stdout without -o)")
 }

@@ -51,11 +51,11 @@ func mergeSwaggers(swaggers []*model.Swagger, swaggerHeader *model.Swagger) (*mo
 		definitionMaps = append(definitionMaps, swagger.Definitions)
 	}
 
-	mergedPaths, err := mergePaths(pathMaps)
+	mergedPaths, err := mergePathMaps(pathMaps)
 	if err != nil {
 		return nil, err
 	}
-	mergedDefinitions, err := mergeDefinitions(definitionMaps)
+	mergedDefinitions, err := mergeDefinitionMaps(definitionMaps)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +93,7 @@ func NewSwaggerHeader(title, version string) *model.Swagger {
 	}
 }
 
-func mergePaths(pathMaps []map[string]*model.Path) (map[string]*model.Path, error) {
+func mergePathMaps(pathMaps []map[string]*model.Path) (map[string]*model.Path, error) {
 	mergedPaths := make(map[string]*model.Path)
 
 	for _, pathMap := range pathMaps {
@@ -109,7 +109,7 @@ func mergePaths(pathMaps []map[string]*model.Path) (map[string]*model.Path, erro
 	return mergedPaths, nil
 }
 
-func mergeDefinitions(definitionMaps []map[string]*model.Definition) (map[string]*model.Definition, error) {
+func mergeDefinitionMaps(definitionMaps []map[string]*model.Definition) (map[string]*model.Definition, error) {
 	mergedDefinitions := make(map[string]*model.Definition)
 
 	for _, definitionMap := range definitionMaps {
