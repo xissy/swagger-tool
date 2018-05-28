@@ -25,16 +25,17 @@ func TestMergePathMaps(t *testing.T) {
 }
 
 func TestMergePathMaps_Error_ErrPathAlreadyExists(t *testing.T) {
+	key := "key"
 	pathMap1 := make(map[string]*model.Path)
-	pathMap1["sameKey"] = nil
+	pathMap1[key] = nil
 	pathMap2 := make(map[string]*model.Path)
-	pathMap2["sameKey"] = nil
+	pathMap2[key] = nil
 	pathMaps := []map[string]*model.Path{pathMap1, pathMap2}
 
 	mergedPathMaps, err := mergePathMaps(pathMaps)
 	assert.Nil(t, mergedPathMaps)
 	assert.NotNil(t, err)
-	assert.EqualError(t, err, errors.Wrap(ErrPathAlreadyExists, "sameKey").Error())
+	assert.EqualError(t, err, errors.Wrap(ErrPathAlreadyExists, key).Error())
 }
 
 func TestMergeDefinitionMaps(t *testing.T) {
@@ -52,15 +53,16 @@ func TestMergeDefinitionMaps(t *testing.T) {
 	assert.Len(t, mergedDefMaps, 3)
 }
 
-func TestMergeDefinitionMaps_error_ErrDefinition(t *testing.T) {
+func TestMergeDefinitionMaps_Error_ErrDefinition(t *testing.T) {
+	key := "key"
 	defMap1 := make(map[string]*model.Definition)
-	defMap1["sameKey"] = nil
+	defMap1[key] = nil
 	defMap2 := make(map[string]*model.Definition)
-	defMap2["sameKey"] = nil
+	defMap2[key] = nil
 	defMaps := []map[string]*model.Definition{defMap1, defMap2}
 
 	mergedDefMaps, err := mergeDefinitionMaps(defMaps)
 	assert.Nil(t, mergedDefMaps)
 	assert.NotNil(t, err)
-	assert.EqualError(t, err, errors.Wrap(ErrDefinitionAlreadyExists, "sameKey").Error())
+	assert.EqualError(t, err, errors.Wrap(ErrDefinitionAlreadyExists, key).Error())
 }
