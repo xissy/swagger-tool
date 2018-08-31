@@ -7,6 +7,8 @@ import (
 )
 
 var (
+	DefaultVersion = "0.0.1"
+
 	ErrEmptySlice              = errors.New("the slice is empty")
 	ErrPathAlreadyExists       = errors.New("the path already exists")
 	ErrDefinitionAlreadyExists = errors.New("the definition already exists")
@@ -40,7 +42,7 @@ func mergeSwaggers(swaggers []*model.Swagger, swaggerHeader *model.Swagger) (*mo
 	}
 
 	if swaggerHeader == nil {
-		swaggerHeader = NewSwaggerHeader("API", "v1")
+		swaggerHeader = NewSwaggerHeader("API", DefaultVersion)
 	}
 
 	var pathMaps []map[string]*model.Path

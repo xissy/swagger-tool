@@ -5,7 +5,7 @@ import (
 )
 
 func ReadFile(filename string) (string, error) {
-	data, err := ioutil.ReadFile(filename)
+	data, err := ioutil.ReadFile(filename) // nolint: gosec
 	if err != nil {
 		return "", err
 	}
